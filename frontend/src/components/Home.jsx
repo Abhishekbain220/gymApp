@@ -47,6 +47,7 @@ const Home = () => {
       setEmail(data.member.email)
       setId(id);
       setUpdateSwitch(true);
+      setDeleteLoading(null)
 
       // 👇 Smooth scroll to the form
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -103,10 +104,34 @@ const Home = () => {
 
               <div className="flex justify-between items-center">
                 <button
-                  onClick={() => findOne(m._id)}
+                  onClick={() => {
+                    findOne(m._id)
+                    deleteHandler(m._id)
+                  }}
                   className="bg-gray-800 text-white  hover:bg-black py-2 px-4 rounded-xl font-medium  transition duration-300"
                 >
-                  Update
+                  {deleteLoading == m._id && (
+                        <svg
+                          className="animate-spin h-5 w-5 mr-2 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                          ></path>
+                        </svg>
+                      )}{deleteLoading == m._id ? '' : 'Update'}
                 </button>
 
                 <div className='flex justify-center'>
