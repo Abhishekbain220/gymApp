@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(morgan("tiny"))
 app.use(cors({
-    origin: true,
+    origin: "https://gymapp-wcgp.onrender.com",
     credentials: true
 }))
 
