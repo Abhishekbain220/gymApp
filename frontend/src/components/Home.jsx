@@ -15,6 +15,7 @@ const Home = () => {
     getMember, member, setMember, email, setEmail
   } = useContext(MemberContext);
   const [deleteLoading, setDeleteLoading] = useState(null)
+  
 
   let navigate = useNavigate();
   
@@ -106,7 +107,7 @@ const Home = () => {
                 <button
                   onClick={() => {
                     findOne(m._id)
-                    deleteHandler(m._id)
+                    setDeleteLoading(m._id)
                   }}
                   className="bg-gray-800 text-white  hover:bg-black py-2 px-4 rounded-xl font-medium  transition duration-300"
                 >
