@@ -15,6 +15,7 @@ const Home = () => {
     getMember, member, setMember, email, setEmail
   } = useContext(MemberContext);
   const [deleteLoading, setDeleteLoading] = useState(null)
+  const [updateLoading, setUpdateLoading] = useState(null)
   
 
   let navigate = useNavigate();
@@ -48,7 +49,7 @@ const Home = () => {
       setEmail(data.member.email)
       setId(id);
       setUpdateSwitch(true);
-      setDeleteLoading(null)
+      setUpdateLoading(null)
 
       // 👇 Smooth scroll to the form
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -107,11 +108,11 @@ const Home = () => {
                 <button
                   onClick={() => {
                     findOne(m._id)
-                    setDeleteLoading(m._id)
+                    setUpdateLoading(m._id)
                   }}
                   className="bg-gray-800 text-white  hover:bg-black py-2 px-4 rounded-xl font-medium  transition duration-300"
                 >
-                  {deleteLoading == m._id && (
+                  {updateLoading == m._id && (
                         <svg
                           className="animate-spin h-5 w-5 mr-2 text-white"
                           xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +133,7 @@ const Home = () => {
                             d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
                           ></path>
                         </svg>
-                      )}{deleteLoading == m._id ? '' : 'Update'}
+                      )}{updateLoading == m._id ? '' : 'Update'}
                 </button>
 
                 <div className='flex justify-center'>
