@@ -42,6 +42,7 @@ const Signup = () => {
       toast.success(signupData.data.message)
     } catch (error) {
       toast.error(error.response.data.message)
+      setLoading(false)
     }
   }
 
