@@ -11,7 +11,7 @@ export let AdminProvider=(props)=>{
     const [token, setToken] = useState(null)
     let [isOpen, setIsOpen] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState(null);
 
     let logout=async()=>{
         try {
