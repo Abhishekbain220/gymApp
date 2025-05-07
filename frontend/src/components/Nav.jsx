@@ -8,7 +8,7 @@ const Nav = () => {
 
 
   return (
-    <div className="bg-white  w-screen text-black p-4 shadow-md fixed top-0 z-50">
+    <div className="bg-transparent  w-screen text-white p-4 shadow-md fixed top-0 z-50">
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
 
         {/* Logo */}
