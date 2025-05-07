@@ -16,7 +16,7 @@ Phone: ${number}
 
 Kindly remind them to complete the payment. Here’s the payment link you can share with them: 👇🏼`,
             from: 'whatsapp:+14155238886',
-            to: `whatsapp:+91${number}`
+            to: `whatsapp:+919630297591`
         })
         .then(message => console.log(message.sid))
 
