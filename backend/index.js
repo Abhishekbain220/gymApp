@@ -68,11 +68,11 @@ app.use("/user", userRouter)
 app.use("/member", memberRouter)
 
 app.use(express.static(path.join(_dirname,"/frontend/dist")))
-app.get((req,res)=>{
+app.get("/",(req,res)=>{
     res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"))
 })
 
-app.use((req, res, next) => {
+app.use("/",(req, res, next) => {
     const error = new Error("Route not found");
     error.status = 404;
     next(error);
