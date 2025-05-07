@@ -26,54 +26,53 @@ app.use(cors({
 }))
 
 
-async function checkMembers() {
+setInterval(async () => {
     try {
-        let members = await Member.find();
-        if (!members || members.length === 0) {
-            console.log("No Member Found");
-            return;
-        }
 
-        members.forEach(async (m) => {
-            let now = new Date();
-            let result = new Date(m.remind) - now;
-            console.log("result", result);
+        let member = await Member.find()
+        if (!member) {
+            console.log("No Member Found")
+            return
+        }
+        member.forEach((m) => {
+            let now = new Date()
+
+
+            let result = new Date(m.remind) - now
+            console.log("result", result)
 
             if (result < 0) {
-                await messageSender(m.name, m.phone);
-                await sendMailCustomer(m);
-
-                let date = new Date(m.remind);
-                date.setMonth(date.getMonth() + m.month);
-                if (date.getMonth() > 12) {
-                    date.setMonth(date.getMonth() - 12);
-                    date.setFullYear(date.getFullYear() + 1);
+                messageSender(m.name,m.phone)
+                sendMailCustomer(m)
+                let date = new Date(m.remind)
+                
+                date.setMonth(date.getMonth() + m.month)
+                if(date.getMonth() > 12){
+                    date.setMonth(date.getMonth()-12)
+                    date.setFullYear(date.getFullYear()+1)
                 }
-                m.remind = date.toISOString();
-                await m.save();
-                console.log("newDate", m.remind, "Name", m.name);
+                m.remind=date.toISOString()
+                
+                m.save()
+                console.log("newDate",m.remind,"Name",m.name)
             }
-        });
-        console.log("No Defaulter");
+        })
+        console.log("No Defaulter")
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
-}
-
-// Run check every minute
-setInterval(checkMembers, 60000);
-
+}, 60000);
 
 // Routes
 app.use("/user", userRouter)
 app.use("/member", memberRouter)
 
 app.use(express.static(path.join(_dirname,"/frontend/dist")))
-app.get("/",(req,res)=>{
+app.get((req,res)=>{
     res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"))
 })
 
-app.use("/",(req, res, next) => {
+app.use((req, res, next) => {
     const error = new Error("Route not found");
     error.status = 404;
     next(error);
