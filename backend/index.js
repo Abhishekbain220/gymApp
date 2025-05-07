@@ -26,42 +26,43 @@ app.use(cors({
 }))
 
 
-setInterval(async () => {
+async function checkMembers() {
     try {
-
-        let member = await Member.find()
-        if (!member) {
-            console.log("No Member Found")
-            return
+        let members = await Member.find();
+        if (!members || members.length === 0) {
+            console.log("No Member Found");
+            return;
         }
-        member.forEach((m) => {
-            let now = new Date()
 
-
-            let result = new Date(m.remind) - now
-            console.log("result", result)
+        members.forEach(async (m) => {
+            let now = new Date();
+            let result = new Date(m.remind) - now;
+            console.log("result", result);
 
             if (result < 0) {
-                messageSender(m.name,m.phone)
-                sendMailCustomer(m)
-                let date = new Date(m.remind)
-                
-                date.setMonth(date.getMonth() + m.month)
-                if(date.getMonth() > 12){
-                    date.setMonth(date.getMonth()-12)
-                    date.setFullYear(date.getFullYear()+1)
+                await messageSender(m.name, m.phone);
+                await sendMailCustomer(m);
+
+                let date = new Date(m.remind);
+                date.setMonth(date.getMonth() + m.month);
+                if (date.getMonth() > 12) {
+                    date.setMonth(date.getMonth() - 12);
+                    date.setFullYear(date.getFullYear() + 1);
                 }
-                m.remind=date.toISOString()
-                
-                m.save()
-                console.log("newDate",m.remind,"Name",m.name)
+                m.remind = date.toISOString();
+                await m.save();
+                console.log("newDate", m.remind, "Name", m.name);
             }
-        })
-        console.log("No Defaulter")
+        });
+        console.log("No Defaulter");
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}, 60000);
+}
+
+// Run check every minute
+setInterval(checkMembers, 60000);
+
 
 // Routes
 app.use("/user", userRouter)
