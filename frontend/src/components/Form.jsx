@@ -50,32 +50,15 @@ const Form = ({ functionHandler, button,heading }) => {
 
         {/* Month Radio */}
         <div>
-          <label className="block text-gray-700 mb-2">Subscription Month</label>
-          <div className="flex items-center text-black space-x-6">
-            <label className="flex items-center space-x-2">
-              <input
-                type="radio"
-                onChange={(e) => setMonth(Number(e.target.value))}
-                checked={month == 1}
-                name="month"
-                value={1}
-                className="accent-gray-800"
-              />
-              <span>1 Month</span>
-            </label>
-
-            <label className="flex items-center space-x-2">
-              <input
-                type="radio"
-                onChange={(e) => setMonth(Number(e.target.value))}
-                checked={month == 3}
-                name="month"
-                value={3}
-                className="accent-gray-800"
-              />
-              <span>3 Months</span>
-            </label>
-          </div>
+          <label className="block text-gray-700 mb-2">Month</label>
+          <input
+            type="text"
+            onChange={(e) => setMonth(e.target.value)}
+            value={month}
+            name="month"
+            placeholder="Enter Month"
+            className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-800"
+          />
         </div>
 
         {/* Submit Button */}
