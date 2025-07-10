@@ -12,16 +12,14 @@ let PORT = process.env.PORT || 3000
 let Member = require("./model/memberSchema")
 const { messageSender } = require("./utils/messageSender")
 const { sendMailCustomer } = require("./utils/mail")
-let path=require("path")
 
-let _dirname=path.resolve()
 // middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(morgan("tiny"))
 app.use(cors({
-    origin: "https://gymapp-wcgp.onrender.com/",
+    origin: true,
     credentials: true
 }))
 
@@ -67,10 +65,7 @@ setInterval(async () => {
 app.use("/user", userRouter)
 app.use("/member", memberRouter)
 
-app.use(express.static(path.join(_dirname,"/frontend/dist")))
-app.get((req,res)=>{
-    res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"))
-})
+
 
 app.use((req, res, next) => {
     const error = new Error("Route not found");

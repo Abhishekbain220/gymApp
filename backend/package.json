@@ -4,9 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon backend/index.js ",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
-    "start": "node backend/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm nodemon server.js"
   },
   "author": "",
   "license": "ISC",
